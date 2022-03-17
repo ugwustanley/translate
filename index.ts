@@ -4,6 +4,8 @@ import getTweet from "./utils/getTweet";
 
 import  postTweet from "./utils/postTweet";
 
+import getTranslation from './utils/getTranslation';
+
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -37,11 +39,11 @@ const slangBot = async () =>{
 
                     let { id_str , text  , user } = tweet;
 
-                    if(user?.screen_name !== "acronym_trans"){
+                    if(user?.screen_name !== "translate_abbr"){
                         
                         console.log(user.screen_name)
 
-                        text  = text.replace("@acronym_trans", '')
+                        text  = text.replace("@translate_abbr", '').toLowerCase();
 
                         const newText = text.replace(/\s/g, '')
 
@@ -82,7 +84,7 @@ const slangBot = async () =>{
 
 const streamForTweet = async () =>{
  
-    const stream = twitConfig.stream('statuses/filter', { track: '@acronym_trans'})
+    const stream = twitConfig.stream('statuses/filter', { track: '@translate_abbr'})
     
     stream.on("tweet", async function (tweet){
 
@@ -93,27 +95,58 @@ const streamForTweet = async () =>{
 
             let { id_str , text  , user } = tweet;
 
-            if(user?.screen_name !== "acronym_trans"){
+            if(user?.screen_name !== "translate_abbr"){
 
-                text  = text.replace("@acronym_trans", '')
+                text  = text.replace("@translate_abbr", '').toLowerCase();
 
                 const newText = text.replace(/\s/g, '')
 
                 //console.log(newText, "-this is our new tweet")
+                try {
+                    const result:any = await getTranslation(newText);
+                    console.log(result, "results")
+                    if(result) {
 
-                try{
+                       const text = result;
+
+                        try{
     
-                const result = await postTweet(twitConfig, id_str, newText , user?.screen_name);
+                            const result = await postTweet(twitConfig, id_str, text , user?.screen_name);
+            
+                                if(result){
+            
+                                    console.log("Reply has been posted => from stream");
+            
+                                }
+            
+                            }catch(err:any){
+                                console.log(err?.allErrors[0]?.message, "=> from stream")
+                         }
 
-                if(result){
+                    }
+                    else{
 
-                    console.log("Reply has been posted => from stream");
+                        const newText = "sorry I don't have this abbreviation in my catalogue. Check my bio if you want to add it"
 
+                        try{
+    
+                            const result = await postTweet(twitConfig, id_str, newText , user?.screen_name);
+            
+                                if(result){
+            
+                                    console.log("Reply has been posted => from stream");
+            
+                                }
+            
+                            }catch(err:any){
+                                console.log(err?.allErrors[0]?.message, "=> from stream")
+                        }
+                    } 
+                } catch (error) {
+                    console.log(error)
                 }
 
-                }catch(err:any){
-                    console.log(err?.allErrors[0]?.message, "=> from stream")
-                }
+              
         }
 
         }
@@ -131,7 +164,6 @@ const streamForTweet = async () =>{
 
 //slangBot();
 
-setInterval(slangBot, 1000 * 60 * 5);
+//setInterval(slangBot, 1000 * 60 * 5);
 
 streamForTweet()
-
