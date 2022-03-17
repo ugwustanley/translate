@@ -8,8 +8,6 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-console.log("test")
-
 const slangBot = async () =>{
    
 
@@ -131,9 +129,9 @@ const streamForTweet = async () =>{
 
 
 
-slangBot();
+//slangBot();
 
 setInterval(slangBot, 1000 * 60 * 5);
 
-//streamForTweet()
+streamForTweet()
 
