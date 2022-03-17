@@ -22,7 +22,6 @@ const getTweet = (twitConfig: twit) => {
                       }
                    return reject(err);
                 } else {
-                    console.log(data , "everything good")
                    return resolve(data);
                 }
             }

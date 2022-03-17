@@ -19,7 +19,6 @@ const postTweet = (twitConfig: twit, tweetId: string, text: string, screen_name:
                 if (err) {
                    return reject(err);
                 } else {
-                    console.log(data , "done!!!")
                    return resolve(data);
                 }
             }
