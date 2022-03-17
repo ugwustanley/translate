@@ -8,7 +8,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-
+console.log("test")
 
 const slangBot = async () =>{
    
