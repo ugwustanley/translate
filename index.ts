@@ -97,17 +97,20 @@ const streamForTweet = async () =>{
 
             if(user?.screen_name !== "translate_abbr"){
 
-                text  = text.replace("@translate_abbr", '').toLowerCase();
+                let text2  = text.toString().replace("@translate_abbr", '').toLowerCase();
 
-                const newText = text.replace(/\s/g, '')
+                // text2  = text.replace("@translate_abbr", '')
+                // console.log(typeof text2)
+                const newText = text2.replace("@translate_abbr", '').replace(/\s/g, '').toLowerCase()
 
                 //console.log(newText, "-this is our new tweet")
                 try {
+                    console.log(newText, "text")
                     const result:any = await getTranslation(newText);
                     console.log(result, "results")
                     if(result) {
 
-                       const text = result;
+                       const text = `${newText}: ${result}`;
 
                         try{
     
@@ -126,7 +129,7 @@ const streamForTweet = async () =>{
                     }
                     else{
 
-                        const newText = "sorry I don't have this abbreviation in my catalogue. Check my bio if you want to add it"
+                        const newText = "Sorry, I don't have this abbreviation in my catalogue. Check my bio if you want to add it"
 
                         try{
     
