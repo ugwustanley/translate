@@ -21,18 +21,20 @@ const slangBot = async () =>{
         console.log(data , "we have the data");
         // return data;
         const tweets = data.statuses;
-        // console.log(data , tweets, "we have the tweets");
+        //console.log(data , tweets, "we have the tweets");
 
        for(let tweet of tweets){
-           console.log(tweet.entities,tweet.entities.user_mentions[0].screen_name , "this is the screen name")
+           console.log(tweet.text , "this is the tweet");
+           //console.log(tweet.entities,tweet.entities.user_mentions[0].screen_name , "this is the screen name")
 
            if(tweet?.entities?.user_mentions?.length){
 
              const userMentions = tweet.entities.user_mentions;
 
              userMentions.forEach(async (userMention: any) => {
+                  
                  if(userMention.screen_name === "acronym_trans"){
-                     console.log("Already replied to tweet")
+                     console.log(tweet.text  , "Already replied to tweet")
                  }
                  else{
                     let { id_str , text  , user } = tweet;
