@@ -7,7 +7,7 @@ const getTweet = (twitConfig: twit) => {
 
     const params = {
         q: `@decode_abbr`,
-        count: 10
+        count: 20
     }
     return new Promise((resolve, reject) => {
 

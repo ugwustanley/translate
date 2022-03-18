@@ -203,8 +203,8 @@ const streamForTweet = async () =>{
 
 
 
-slangBot();
 
-//setInterval(slangBot, 1000 * 30);
 
-//streamForTweet()
+setInterval(slangBot, 1000 * 60 * 5);
+
+streamForTweet()
