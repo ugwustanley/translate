@@ -21,7 +21,7 @@ const slangBot = async () =>{
 
 
        const data: any = await getTweet(twitConfig)
-      console.log(data)
+      //console.log(data)
        if(data){ 
        
   
