@@ -136,17 +136,19 @@ const streamForTweet = async () =>{
 
             let { id_str , text  , user } = tweet;
 
-            if(user?.screen_name !== "decode_abbr"){
+            if(user?.screen_name != "decode_abbr" && text.includes("decode")){
 
-                let text2  = text.toString().replace("@decode_abbr", '').toLowerCase();
+                //console.log(text.includes("decode"))
+
+                let text2  = text.toString().replace("@decode_abbr", '').replace("decode", '').toLowerCase();
 
                 // text2  = text.replace("@decode_abbr", '')
                 // console.log(typeof text2)
-                const newText = text2.replace("@decode_abbr", '').replace(/\s/g, '').toLowerCase()
+                const newText = text2.replace("@decode_abbr", '').replace('decode', '').replace(/\s/g, '').toLowerCase()
 
                 //console.log(newText, "-this is our new tweet")
                 try {
-                    console.log(newText, "text")
+                    console.log(newText, typeof newText, "text")
                     const result:any = await getTranslation(newText);
                     console.log(result, "results")
                     if(result) {
@@ -205,7 +207,7 @@ const streamForTweet = async () =>{
 
 
 function main(){
-    setInterval(slangBot, 1000 * 60 * 5);
+   // setInterval(slangBot, 1000 * 60 * 5);
 
      streamForTweet()
 }
