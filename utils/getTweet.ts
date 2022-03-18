@@ -6,7 +6,7 @@ import twit from 'twit'
 const getTweet = (twitConfig: twit) => {
 
     const params = {
-        q: `@acronym_trans`,
+        q: `@decode_abbr`,
         count: 10
     }
     return new Promise((resolve, reject) => {
