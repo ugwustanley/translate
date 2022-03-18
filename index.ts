@@ -133,20 +133,34 @@ const streamForTweet = async () =>{
 
 
             console.log( "there is a stream");
+           
+            let { id_str , text  , user , entities } = tweet;
 
-            let { id_str , text  , user } = tweet;
+             const mentions = entities.user_mentions 
+              //console.log(mentions)
+
+                if(mentions.length > 0){
+                    for (let i = 0 ; i < mentions.length ; i++){
+
+                    console.log(typeof mentions[i])
+
+                    text = text.replace(`@${mentions[i].screen_name}` , "").replace("@decode_abbr", '')
+            
+                }
+             }
+
+            console.log(text, "removed mentions")
 
             if(user?.screen_name != "decode_abbr" && text.includes("decode")){
 
-                //console.log(text.includes("decode"))
+              
 
                 let text2  = text.toString().replace("@decode_abbr", '').replace("decode", '').toLowerCase();
 
-                // text2  = text.replace("@decode_abbr", '')
-                // console.log(typeof text2)
+               
                 const newText = text2.replace("@decode_abbr", '').replace('decode', '').replace(/\s/g, '').toLowerCase()
 
-                //console.log(newText, "-this is our new tweet")
+                
                 try {
                     console.log(newText, typeof newText, "text")
                     const result:any = await getTranslation(newText);
