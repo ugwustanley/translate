@@ -6,9 +6,13 @@ import  postTweet from "./utils/postTweet";
 
 import getTranslation from './utils/getTranslation';
 
+import express from 'express'
+
 import dotenv from 'dotenv'
 
 dotenv.config()
+
+const app = express()
 
 const slangBot = async () =>{
    console.log("called")
@@ -200,11 +204,19 @@ const streamForTweet = async () =>{
 }
 
 
+function main(){
+    setInterval(slangBot, 1000 * 60 * 5);
+
+     streamForTweet()
+}
+
+
+const PORT = process.env.PORT || 9000
+
+app.listen( PORT , () =>{
+    console.log(`port running at ${PORT}`)
+    main()
+})
 
 
 
-
-
-setInterval(slangBot, 1000 * 60 * 5);
-
-streamForTweet()
