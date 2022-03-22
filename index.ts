@@ -18,6 +18,8 @@ dotenv.config()
 
 const app = express()
 
+const endpoint:any = 'statuses/filter'
+
 
 const stopStartStream = (stream:any): void =>{
     stream.stop()
@@ -35,8 +37,10 @@ const stopStartStream = (stream:any): void =>{
 
 
 const streamForTweet = async () =>{
- 
-    const stream = twitConfig.stream('statuses/filter', { track: '@decode_abbr'})
+
+    console.log("Starting stream...")
+
+    const stream = twitConfig.stream(endpoint, { track: '@decode_abbr'})
     
     stream.on("tweet", async function (tweet, error){
          
@@ -89,7 +93,7 @@ const streamForTweet = async () =>{
 
             if(
                 user?.screen_name != "decode_abbr" &&
-                text.toLowerCase.includes("decode") &&
+                text.toLowerCase().includes("decode") &&
                 retweeted_status == undefined 
               ){
 
@@ -125,8 +129,9 @@ const streamForTweet = async () =>{
                             }catch(err:any){
                                 
                                 
-                                console.log( "error occurred => from stream")
-                                console.log(err)
+                                console.log( "error occurred at postTweet => from stream")
+
+                                console.log(err, "error message => at postTweet")
 
                                 
                                         if (err === "authentication issues") {
