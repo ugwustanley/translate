@@ -6,13 +6,13 @@ import  postTweet from "./utils/PostTweet";
 
 import { wrapTwitterErrors , errors } from 'twitter-error-handler';
 
-import { successMessage , failureMessage} from './utils/GetText'
+import { successMessage , failureMessage} from './utils/GetText';
 
-import getTranslation from './utils/GetTranslation';
+import getTranslation from './utils/GetTranslation'; 
 
-import express from 'express'
+import express from 'express';
 
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
 dotenv.config()
 
