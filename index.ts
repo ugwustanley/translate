@@ -2,7 +2,7 @@ import twitConfig from "./config/twit.config";
 
 import getTweet from "./utils/getTweet";
 
-import  postTweet from "./utils/gostTweet";
+import  postTweet from "./utils/postTweet";
 
 import { wrapTwitterErrors , errors } from 'twitter-error-handler';
 
