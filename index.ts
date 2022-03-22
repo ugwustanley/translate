@@ -1,14 +1,14 @@
 import twitConfig from "./config/twit.config";
 
-import getTweet from "./utils/GetTweet";
+import getTweet from "./utils/getTweet";
 
-import  postTweet from "./utils/PostTweet";
+import  postTweet from "./utils/gostTweet";
 
 import { wrapTwitterErrors , errors } from 'twitter-error-handler';
 
-import { successMessage , failureMessage} from './utils/GetText';
+import { successMessage , failureMessage} from './utils/getText';
 
-import getTranslation from './utils/GetTranslation'; 
+import getTranslation from './utils/getTranslation'; 
 
 import express from 'express';
 
