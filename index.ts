@@ -6,7 +6,7 @@ import  postTweet from "./utils/postTweet";
 
 import { wrapTwitterErrors , errors } from 'twitter-error-handler';
 
-import { successMessage , failureMessage } from './utils/getText';
+import { successMessage , failureMessage } from './utils/getMessage';
 
 import getTranslation from './utils/getTranslation'; 
 
