@@ -1,25 +1,47 @@
 'use strict';
+
 import twit from 'twit';
 
+import { wrapTwitterErrors , errors } from 'twitter-error-handler';
 
 
-const postTweet = (twitConfig: twit, tweetId: string, text: string, screen_name:string): Promise<any> => {
+
+const postTweet = (twitConfig: twit, tweetId: string, text: string, screen_name:string): Promise<Error | object> => {
 
     const params = {
-        status: `${text} @${screen_name}`,
+        status: `@${screen_name} ${text}`,
         in_reply_to_status_id: '' + tweetId
     }
+    //console.log(params)
+
+    const endpoint:any = 'statuses/update'
 
     return new Promise((resolve, reject) => {
-
+        // reject("data")
         twitConfig.post(
-            "statuses/update",
+            endpoint,
             params,
-            (err, data) => {
+            (err:any, data) => {
+               
                 if (err) {
-                   return reject(err);
-                } else {
-                   return resolve(data);
+                   try {
+                        wrapTwitterErrors( err , endpoint) 
+
+                   } catch (error) {
+
+                    if (error instanceof errors.ProblemWithAuth) {
+                        reject("authentication issues")
+                    }
+                    else if (error instanceof errors.RateLimited) {
+                        reject("limited")
+                    }
+                    else{
+                        reject("unknown")
+                    }
+                   }
+                } else { 
+
+                  resolve(data);
                 }
             }
         );

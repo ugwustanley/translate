@@ -3,7 +3,7 @@ import twit from 'twit'
 
 
 
-const getTweet = (twitConfig: twit) => {
+const getTweet = (twitConfig: twit):Promise<Error | object> => {
 
     const params = {
         q: `@decode_abbr`,
