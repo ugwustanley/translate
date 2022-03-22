@@ -165,11 +165,34 @@ const streamForTweet = async () =>{
                                 }
             
                             }catch(err:any){
-                                console.log(err?.allErrors[0]?.message, "=> from stream")
+
+                                 console.log( "error occurred => from stream")
+
+                                 console.log(err)
+
+                                
+                                if (err === "authentication issues") {
+
+                                    console.log("Issue with authentication")
+                                }
+
+                                else if (err === "limited") {
+                                        stopStartStream(stream)
+                                }
+                                else if (err === "data") {
+                                    console.log("data issue")
+                                        stopStartStream(stream)
+                                }
+                                else if (err === "unknown") {
+                                    stopStartStream(stream)
+                                }
+                                else {
+                                    stopStartStream(stream)
+                                }
                         }
                     } 
                 } catch (error) {
-                    console.log(error)
+                    console.log(error , "Error from get Translation")
                 }
 
               
@@ -186,9 +209,7 @@ const streamForTweet = async () =>{
 
 
 function main(){
-   // setInterval(slangBot, 1000 * 60 * 5);
-
-     streamForTweet()
+       streamForTweet()
 }
 
 
